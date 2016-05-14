@@ -54,7 +54,8 @@ func main() {
 		os.Exit(3)
 	}
 
-	if libkb.PrereleaseBuild != "" {
+	fv.Build, _ = strconv.Atoi(os.Getenv("KEYBASE_WINBUILD"))
+	if fv.Build == 0 && libkb.PrereleaseBuild != "" {
 		fv.Build, _ = strconv.Atoi(libkb.PrereleaseBuild)
 	}
 

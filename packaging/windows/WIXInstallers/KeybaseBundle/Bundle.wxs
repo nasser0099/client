@@ -15,7 +15,9 @@
           DetectCondition="ExeDetectedVariable"
           PerMachine="yes"/>
 
-      <MsiPackage Id="KeybasePrograms" SourceFile="$(var.KeybaseApps.TargetPath)">
+      <MsiPackage Id="KeybasePrograms" 
+                  SourceFile="$(var.KeybaseApps.TargetPath)" 
+                  DisplayInternalUI='yes'>
           <MsiProperty Name="ISELEVATED" Value="1" />
       </MsiPackage>
 		</Chain>
