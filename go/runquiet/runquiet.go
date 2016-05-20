@@ -29,6 +29,7 @@ func main() {
 
 	doWait := false
 	doUAC := false
+	doHide := true
 	for i := 1; i < 3 && (i+1) < len(os.Args); i++ {
 		if strings.EqualFold(os.Args[argsIndex], "-wait") {
 			argsIndex++
@@ -36,6 +37,9 @@ func main() {
 		} else if strings.EqualFold(os.Args[argsIndex], "-UAC") {
 			argsIndex++
 			doUAC = true
+		} else if strings.EqualFold(os.Args[argsIndex], "-show") {
+			argsIndex++
+			doHide = false
 		}
 	}
 
@@ -50,7 +54,7 @@ func main() {
 		Files: []uintptr{uintptr(syscall.Stdin), uintptr(syscall.Stdout), uintptr(syscall.Stderr)},
 		Env:   syscall.Environ(),
 		Sys: &syscall.SysProcAttr{
-			HideWindow:    true,
+			HideWindow:    doHide,
 			CreationFlags: CREATE_NEW_CONSOLE,
 		},
 	}
@@ -69,6 +73,8 @@ func main() {
 			time.Sleep(100 * time.Millisecond)
 		} else {
 			fmt.Printf("Unsuccessful wait: Error %v, pstate %v\n", err, *pstate)
+			os.Exit(1)
 		}
 	}
+	os.Exit(0)
 }

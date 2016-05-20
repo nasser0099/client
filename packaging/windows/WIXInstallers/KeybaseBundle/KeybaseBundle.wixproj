@@ -25,20 +25,14 @@
     <Compile Include="Bundle.wxs" />
   </ItemGroup>
   <ItemGroup>
+    <WixExtension Include="WixUtilExtension">
+      <HintPath>$(WixExtDir)\WixUtilExtension.dll</HintPath>
+      <Name>WixUtilExtension</Name>
+    </WixExtension>
     <WixExtension Include="WixBalExtension">
       <HintPath>$(WixExtDir)\WixBalExtension.dll</HintPath>
       <Name>WixBalExtension</Name>
     </WixExtension>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\KeybaseApps\KeybaseApps.wixproj">
-      <Name>KeybaseApps</Name>
-      <Project>{cb18799f-a8c7-4571-b80f-6c00a0cd88fd}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--

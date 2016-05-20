@@ -81,11 +81,11 @@
         <Control Id="Yes" Type="PushButton" X="72" Y="67" Width="56" Height="17" Text="[ButtonText_Yes]">
           <Publish Event="EndDialog" Value="Return">1</Publish>
         </Control>
-        <Control Id="Text" Type="Text" X="48" Y="15" Width="194" Height="30">
+        <Control Id="Text" Type="Text" X="43" Y="15" Width="209" Height="30">
           <Text>This [ProductName] update contains important bugfixes and cool new features. Would you like to install it now?</Text>
         </Control>
         <Control Id="u" Type="CheckBox" X="48" Y="50" Width="194" Height="17" Property="AUTOUPDATECHECKBOX" CheckBoxValue="1" Text="Do this automatically from now on." />
-        <Control Id="Icon" Type="Icon" X="15" Y="15" Width="24" Height="24" ToolTip="Information icon" FixedSize="yes" IconSize="32" Text="[InfoIcon]" />
+        <Control Id="Icon" Type="Icon" X="10" Y="15" Width="24" Height="24" ToolTip="Information icon" FixedSize="yes" IconSize="32" Text="[InfoIcon]" />
       </Dialog>
 
       <TextStyle Id="DlgFont8" FaceName="Tahoma" Size="8" />
