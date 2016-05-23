@@ -178,3 +178,32 @@ func TestShowTrackerPopupMessage(t *testing.T) {
 		t.Fatalf("Expected the tracker window for UID %s to be dismissed. current value: %s", trackee.User.GetUID().String(), identifyUI.dismissedUsername)
 	}
 }
+
+func TestRekeyNeededMessageNoScores(t *testing.T) {
+	tc := libkb.SetupTest(t, "gregor")
+	defer tc.Cleanup()
+
+	tc.G.SetService()
+
+	h := newGregorHandler(tc.G)
+
+	msgID := gregor1.MsgID("my_random_id")
+	m := gregor1.Message{
+		Ibm_: &gregor1.InBandMessage{
+			StateUpdate_: &gregor1.StateUpdateMessage{
+				Md_: gregor1.Metadata{
+					MsgID_: msgID,
+					Ctime_: gregor1.ToTime(tc.G.Clock.Now()),
+				},
+				Creation_: &gregor1.Item{
+					Category_: gregor1.Category("kbfs_tlf_rekey_needed"),
+					Body_:     gregor1.Body(`[]`),
+				},
+			},
+		},
+	}
+
+	if err := h.BroadcastMessage(context.Background(), m); err != nil {
+		t.Fatal(err)
+	}
+}
