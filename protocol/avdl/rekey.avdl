@@ -43,7 +43,6 @@ protocol rekey {
    */
   void showRekeyStatus(int sessionID, array<TLFID> tlfs, union { null, UID } user, union { null, KID } kid);
 
-
   /** getRekeyTLFs is called by the UI to render which TLFs need to be fixed.
    * The UI will repeatedly poll this RPC when it gets a `rekeyChanged` notice
    * below
