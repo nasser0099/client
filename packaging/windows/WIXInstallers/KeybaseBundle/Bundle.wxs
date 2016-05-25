@@ -11,6 +11,7 @@
             ShowVersion="yes"
             />
     </BootstrapperApplicationRef>
+    <!-- These two are for the most recent KBFS -->
     <util:RegistrySearch Id="InnoUninstall"
                  Variable="InnoUninstallString"        
                  Root="HKLM"
@@ -31,7 +32,7 @@
     <util:RegistrySearch Id="DokanUninstall"
                  Variable="DokanUninstallString"
                  Root="HKLM"
-                 Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\DokanLibrary"
+                 Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{65A3A964-3DC3-0100-0000-160511152538}"
                  Value="UninstallString"
                  Format="raw"
                  />
@@ -40,15 +41,16 @@
                  Condition="NOT DokanUninstallString"        
                  Variable="DokanUninstallString"
                  Root="HKLM"
-                 Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\DokanLibrary"
+                 Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{65A3A964-3DC3-0100-0000-160511152538}"
                  Value="UninstallString"
                  Format="raw"
                  Win64="yes"
                  />
-
+    <!--
     <bal:Condition Message="Please uninstall previous Keybase version and reboot before proceeding with this update: [WixBundleOriginalSource]">
       NOT InnoUninstallString
     </bal:Condition>
+    -->
     
     <util:FileSearch
       Id='SearchForDokanSys'
@@ -56,10 +58,12 @@
       Result="exists"
       Path="[SystemFolder]drivers\dokan.sys"
        />
+    <!--
     <bal:Condition Message="Please remove [SystemFolder]drivers\dokan.sys before proceeding with this update.">
       NOT DokanSysFilePresent
     </bal:Condition>
-    
+    -->
+
     <util:FileSearch
       Id='SearchForDokan1Sys'
       Variable="Dokan1SysFilePresent"
@@ -71,13 +75,23 @@
     </bal:Condition>
 
     <Chain>
-      
-      <ExePackage SourceFile="$(env.GOPATH)\bin\dokan-dev\dokan-v0.8.0\DokanInstall_0.8.0_redist.exe"
-          DetectCondition="DokanUninstallString"
-          InstallCondition="NOT DokanUninstallString"
+      <ExePackage
+        SourceFile="$(env.GOPATH)\src\github.com\keybase\client\go\runquiet\runquiet.exe"
+          InstallCommand="-wait [InnoUninstallString] /NORESTART"
+          DetectCondition="NOT InnoUninstallString"
+          InstallCondition="InnoUninstallString"
           PerMachine="yes"
-          InstallCommand="/S"
-          Permanent="yes"/>
+          Permanent="yes">
+        <ExitCode Behavior="forceReboot"/>
+      </ExePackage>
+      <ExePackage
+        SourceFile="$(env.GOPATH)\bin\dokan-dev\dokan-v1.0.0-RC4\DokanSetup.exe"
+          InstallCommand="/quiet"
+          UninstallCommand="/quiet /uninstall"
+          DetectCondition="ExeDetectedVariable"
+          PerMachine="yes"
+          Permanent="no">
+      </ExePackage>
 
       <MsiPackage Id="KeybasePrograms" 
                   SourceFile="$(var.KeybaseApps.TargetPath)" 

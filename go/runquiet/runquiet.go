@@ -73,8 +73,6 @@ func main() {
 			time.Sleep(100 * time.Millisecond)
 		} else {
 			fmt.Printf("Unsuccessful wait: Error %v, pstate %v\n", err, *pstate)
-			os.Exit(1)
 		}
 	}
-	os.Exit(0)
 }

@@ -3,10 +3,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProductVersion>3.10</ProductVersion>
+    <ProductVersion>1.0.0.1</ProductVersion>
     <ProjectGuid>cb18799f-a8c7-4571-b80f-6c00a0cd88fd</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>KeybaseApps</OutputName>
+    <OutputName>KeybaseApps_$(ProductVersion)</OutputName>
     <OutputType>Package</OutputType>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
@@ -31,7 +31,7 @@
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>
-    <PreBuildEvent>"%25WIX%25bin\heat" dir %25GOPATH%25\src\github.com\keybase\client\desktop\release\win32-ia32\Keybase-win32-ia32 -cg GuiComponents -ag -sfrag -template fragment  -var var.GuiSourceDir  -dr INSTALLFOLDER -t gui.xsl -out $(ProjectDir)\gui.wxs</PreBuildEvent>
+    <PreBuildEvent>"%25WIX%25bin\heat" dir %25GOPATH%25\src\github.com\keybase\client\desktop\release\win32-ia32\Keybase-win32-ia32 -cg GuiComponents -ag -sfrag -template fragment  -var var.GuiSourceDir  -dr INSTALLFOLDER -t $(ProjectDir)\gui.xsl -out $(ProjectDir)\gui.wxs</PreBuildEvent>
   </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.

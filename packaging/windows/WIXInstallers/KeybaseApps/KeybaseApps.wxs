@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="Keybase" Language="1033" Version="$(env.KEYBASE_WINVER)" Manufacturer="Keybase, Inc." UpgradeCode="c118f7ec-9a1d-4ff1-91f5-15d208499d7b">
+	<Product Id="*" Name="Keybase Update" Language="1033" Version="$(env.KEYBASE_WINVER)" Manufacturer="Keybase, Inc." UpgradeCode="c118f7ec-9a1d-4ff1-91f5-15d208499d7b">
 		<Package InstallerVersion="500" Compressed="yes" InstallPrivileges="limited" InstallScope="perUser" />
     <MediaTemplate EmbedCab="yes"/>
     <Icon Id="ProductIcon" SourceFile="$(env.GOPATH)\src\github.com\keybase\client\packaging\windows\keybase.ico"/>
@@ -119,11 +119,6 @@
       </Directory>
       <Directory Id="StartupFolder" Name="Startup" />
       <Directory Id="SystemFolder" Name="System" />
-      <Directory Id="ProgramFilesFolder">
-        <Directory Id="DokanDir" Name="Dokan">
-          <Directory Id="DokanLibraryDir" Name="DokanLibrary"/>  
-        </Directory>
-      </Directory>
     </Directory>
 	</Fragment>
   
@@ -164,7 +159,7 @@
         <RegistryKey Root="HKCU" Key="Software\Keybase\Keybase">
           <RegistryValue Name="KbfsDokanExe" Value="1" KeyPath="yes" Type="integer" />
         </RegistryKey>
-        <File Id='DokanExe' DiskId='1' Source="$(env.GOPATH)\src\github.com\keybase\kbfs\kbfsdokan\kbfsdokan.exe" />
+        <File Id='KbfsDokanExe' DiskId='1' Source="$(env.GOPATH)\src\github.com\keybase\kbfs\kbfsdokan\kbfsdokan.exe" />
       </Component>
       
       <Component Id="AutoUpdateRegistryEntry"
@@ -196,7 +191,7 @@
         <Shortcut Id="KBFSShortCutStartUp" Name="KFSStartup"
                   Description="Start KBFS at boot"
                   Target="[INSTALLFOLDER]runquiet.exe"
-                  Arguments="kbfsdokan.exe -debug -log-to-file K:"
+                  Arguments="kbfsdokan.exe -debug -log-to-file -mount-type=force K:"
                   WorkingDirectory="INSTALLFOLDER"/>
         <RegistryKey Root="HKCU" Key="Software\Keybase\Keybase">
           <RegistryValue Name="ShortCutStartUpKBFS" Type="integer" Value="1" KeyPath="yes"  />
@@ -262,7 +257,7 @@
   <Fragment>
     <CustomAction Id="RunKBFS"
               Directory="INSTALLFOLDER"
-              ExeCommand="[INSTALLFOLDER]runquiet.exe [INSTALLFOLDER]kbfsdokan.exe -debug -log-to-file K:"
+              ExeCommand="[INSTALLFOLDER]runquiet.exe [INSTALLFOLDER]kbfsdokan.exe -debug -log-to-file -mount-type=force K:"
               Execute="commit"
               Return="ignore"/>
   </Fragment>
