@@ -218,6 +218,8 @@ func TestRekeyNeededMessageNoScores(t *testing.T) {
 		},
 	}
 
+	tc.G.Log.Debug("broadcasting message: %+v", m)
+
 	if err := h.BroadcastMessage(context.Background(), m); err != nil {
 		t.Fatal(err)
 	}
