@@ -390,6 +390,10 @@
     "registerUpdateUI": {
       "request": [],
       "response": "null"
+    },
+    "registerRekeyUI": {
+      "request": [],
+      "response": "null"
     }
   },
   "namespace": "keybase.1"

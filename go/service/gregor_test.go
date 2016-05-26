@@ -198,7 +198,8 @@ func TestRekeyNeededMessageNoScores(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	rekeyHandler := NewRekeyUIHandler(tc.G, h)
+	rekeyHandler := NewRekeyUIHandler(tc.G, 0)
+	rekeyHandler.alwaysAlive = true
 	h.PushHandler(rekeyHandler)
 
 	msgID := gregor1.MsgID("my_random_id")
@@ -277,7 +278,8 @@ func TestRekeyNeededMessageWithScores(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	rekeyHandler := NewRekeyUIHandler(tc.G, h)
+	rekeyHandler := NewRekeyUIHandler(tc.G, 0)
+	rekeyHandler.alwaysAlive = true
 	h.PushHandler(rekeyHandler)
 
 	msgID := gregor1.MsgID("my_random_id")

@@ -1691,6 +1691,15 @@ export type delegateUiCtl_registerIdentifyUI_rpc = {
   callback: (null | (err: ?any) => void)
 }
 
+export type delegateUiCtl_registerRekeyUI_result = void
+
+export type delegateUiCtl_registerRekeyUI_rpc = {
+  method: 'delegateUiCtl.registerRekeyUI',
+  param: {},
+  incomingCallMap: ?incomingCallMapType,
+  callback: (null | (err: ?any) => void)
+}
+
 export type delegateUiCtl_registerSecretUI_result = void
 
 export type delegateUiCtl_registerSecretUI_rpc = {
@@ -3530,6 +3539,7 @@ export type rpc =
   | debugging_increment_rpc
   | debugging_secondStep_rpc
   | delegateUiCtl_registerIdentifyUI_rpc
+  | delegateUiCtl_registerRekeyUI_rpc
   | delegateUiCtl_registerSecretUI_rpc
   | delegateUiCtl_registerUpdateUI_rpc
   | device_checkDeviceNameFormat_rpc
@@ -4032,6 +4042,13 @@ export type incomingCallMapType = {
     }
   ) => void,
   'keybase.1.delegateUiCtl.registerUpdateUI'?: (
+    params: {},
+    response: {
+      error: (err: RPCError) => void,
+      result: () => void
+    }
+  ) => void,
+  'keybase.1.delegateUiCtl.registerRekeyUI'?: (
     params: {},
     response: {
       error: (err: RPCError) => void,
