@@ -745,6 +745,7 @@ export const images = {
   'folder-public-success-m': require('../images/icons/folder-public-success-m.png'),
   'folder-public-xs': require('../images/icons/folder-public-xs.png'),
   'folders-unlocked-m': require('../images/icons/folders-unlocked-m.png'),
+  'history-clear-64': require('../images/icons/history-clear-64.png'),
   'invite-code-m': require('../images/icons/invite-code-m.png'),
   'invite-code-none-m': require('../images/icons/invite-code-none-m.png'),
   'invite-link-m': require('../images/icons/invite-link-m.png'),
